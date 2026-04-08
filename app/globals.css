@@ -5,6 +5,13 @@
   --foreground: #171717;
 }
 
+@theme {
+  --color-theme-accent: var(--theme-accent);
+  --color-theme-text: var(--theme-text);
+  --color-theme-highlight: var(--theme-highlight);
+  --color-theme-highlight-bg: var(--theme-highlight-bg);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -24,3 +31,56 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer components {
+  /* Calendar Base Layouts */
+  .cal-container {
+    @apply w-full h-full relative flex flex-col md:flex-row;
+  }
+  .cal-section-left {
+    @apply relative w-full h-[45%] md:h-full md:w-[45%] shrink-0;
+  }
+  .cal-section-right {
+    @apply flex grow flex-row md:flex-col px-4 md:px-10 pt-10 pb-6 md:pb-8 gap-4 bg-white overflow-y-auto md:overflow-visible w-full md:w-[55%];
+  }
+  
+  /* Calendar Notes Elements */
+  .notes-header-col {
+    @apply flex flex-col items-start mb-4 md:mb-0 w-full md:w-1/4 pr-0 md:pr-2 gap-0;
+  }
+  .notes-body-col {
+    @apply flex flex-col w-full md:w-3/4 px-0 md:px-1 grow min-h-[150px] md:min-h-0 md:h-full z-20;
+  }
+  .notes-textarea {
+    @apply w-full h-full bg-transparent border-none resize-none outline-none leading-[32px] focus:ring-0 text-theme-text font-medium text-xs md:text-base;
+  }
+
+  /* Grid Layouts */
+  .cal-grid-container {
+    @apply order-1 md:order-2 w-[60%] md:w-full min-h-[300px] md:min-h-0 md:h-[65%] flex flex-col relative z-40 md:mt-4;
+  }
+  .grid-header-row {
+    @apply grid grid-cols-7 border-b border-gray-200;
+  }
+  .grid-header-cell {
+    @apply text-center py-2 text-[9px] md:text-[11px] font-bold tracking-widest;
+  }
+  .grid-body-container {
+    @apply grid grid-cols-7 grid-rows-5 grow border-l border-t border-gray-200 mt-2;
+  }
+  .grid-day-cell {
+    @apply border-r border-b border-gray-200 p-2 flex justify-center items-center cursor-pointer transition-colors duration-150 relative;
+  }
+  .grid-day-indicator {
+    @apply relative flex justify-center items-center h-6 w-6 md:h-8 md:w-8 rounded-full;
+  }
+  
+  /* Tooltips */
+  .grid-action-tooltip {
+    @apply absolute top-[-35px] left-1/2 transform -translate-x-1/2 bg-theme-text text-white px-4 py-1.5 rounded-md shadow-lg text-[10px] uppercase font-bold tracking-widest flex items-center justify-center gap-3 transition-opacity;
+  }
+  .tooltip-btn {
+    @apply bg-theme-accent text-white rounded w-5 h-5 flex items-center justify-center hover:brightness-125 cursor-pointer shadow-sm transition-transform hover:scale-110 active:scale-95 text-xs pb-[2px];
+  }
+}
+
