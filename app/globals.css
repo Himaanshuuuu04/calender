@@ -43,7 +43,7 @@ body {
   .cal-section-right {
     @apply flex grow flex-row md:flex-col px-4 md:px-10 pt-10 pb-6 md:pb-8 gap-4 bg-white overflow-y-auto md:overflow-visible w-full md:w-[55%];
   }
-  
+
   /* Calendar Notes Elements */
   .notes-header-col {
     @apply flex flex-col items-start mb-4 md:mb-0 w-full md:w-1/4 pr-0 md:pr-2 gap-0;
@@ -57,7 +57,7 @@ body {
 
   /* Grid Layouts */
   .cal-grid-container {
-    @apply order-1 md:order-2 w-[60%] md:w-full min-h-[300px] md:min-h-0 md:h-[65%] flex flex-col relative z-40 md:mt-4;
+    @apply order-1 md:order-2 w-[60%] md:w-full min-h-[300px] md:min-h-0 md:h-[65%] flex flex-col relative z-40 md:mt-4;       
   }
   .grid-header-row {
     @apply grid grid-cols-7 border-b border-gray-200;
@@ -74,7 +74,7 @@ body {
   .grid-day-indicator {
     @apply relative flex justify-center items-center h-6 w-6 md:h-8 md:w-8 rounded-full;
   }
-  
+
   /* Tooltips */
   .grid-action-tooltip {
     @apply absolute top-[-35px] left-1/2 transform -translate-x-1/2 bg-theme-text text-white px-4 py-1.5 rounded-md shadow-lg text-[10px] uppercase font-bold tracking-widest flex items-center justify-center gap-3 transition-opacity;
@@ -83,4 +83,3 @@ body {
     @apply bg-theme-accent text-white rounded w-5 h-5 flex items-center justify-center hover:brightness-125 cursor-pointer shadow-sm transition-transform hover:scale-110 active:scale-95 text-xs pb-[2px];
   }
 }
-

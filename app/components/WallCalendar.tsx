@@ -11,20 +11,24 @@ import CalendarFlipper from "./calendar/CalendarFlipper";
 import { useCalendarStore } from "../store/calendarStore";
 
 export default function WallCalendar() {
-  const [hydrated, setHydrated] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { theme, currentDateStr, soundEnabled, toggleSound } =
     useCalendarStore();
 
   useEffect(() => {
-    // Ensuring Zustand persistence only renders client-side to prevent hydration mismatch
-    setTimeout(() => setHydrated(true), 0);
+    (async () => {
+      await useCalendarStore.persist.rehydrate();
+      const state = useCalendarStore.getState();
+      if (!state.hasVisited) {
+        state.setCurrentDate(new Date().toISOString());
+        state.setHasVisited();
+      }
+    })();
   }, []);
-
-  if (!hydrated) return null;
 
   return (
     <div
+      suppressHydrationWarning
       ref={containerRef}
       className="w-full min-h-screen bg-gray-300 py-10 flex items-center justify-center font-sans relative transition-colors duration-500"
       style={
@@ -33,6 +37,10 @@ export default function WallCalendar() {
           "--theme-text": theme.text,
           "--theme-highlight": theme.highlight,
           "--theme-highlight-bg": theme.highlightBg,
+          "--color-theme-accent": theme.accent,
+          "--color-theme-text": theme.text,
+          "--color-theme-highlight": theme.highlight,
+          "--color-theme-highlight-bg": theme.highlightBg,
         } as React.CSSProperties
       }
     >
@@ -49,7 +57,7 @@ export default function WallCalendar() {
 
       <CalendarFlipper
         renderPage={(dateStr) => (
-          <div className="cal-container">
+          <div className="w-full h-full relative flex flex-col md:flex-row">
             <div
               className="absolute inset-0 z-50 pointer-events-none mix-blend-multiply opacity-60"
               style={{
@@ -60,7 +68,7 @@ export default function WallCalendar() {
 
             <CalendarImage overrideDateStr={dateStr} />
 
-            <div className="cal-section-right">
+            <div className="flex grow flex-row md:flex-col px-4 md:px-10 pt-10 pb-6 md:pb-8 gap-4 bg-white overflow-y-auto md:overflow-visible w-full md:w-[55%]">
               <CalendarGrid overrideDateStr={dateStr} />
               <CalendarNotes overrideDateStr={dateStr} />
             </div>

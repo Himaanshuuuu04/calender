@@ -9,7 +9,7 @@ export default function CalendarImage({
   const imageUrl = getImageForMonth(overrideDateStr);
 
   return (
-    <div className="cal-section-left">
+    <div className="relative w-full h-[45%] md:h-full md:w-[45%] shrink-0">
       <img
         src={imageUrl}
         crossOrigin="anonymous"

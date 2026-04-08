@@ -31,7 +31,7 @@ export default function CalendarNotes({
   return (
     <div className="order-2 md:order-1 w-[40%] md:w-full md:h-[35%] flex flex-col justify-start md:flex-row md:justify-between md:items-start md:gap-8">
       {/* Big Date Top */}
-      <div className="notes-header-col">
+      <div className="flex flex-col items-start mb-4 md:mb-0 w-full md:w-1/4 pr-0 md:pr-2 gap-0">
         <h1 className="text-theme-accent text-[36px] md:text-[58px] font-black uppercase tracking-tighter leading-none m-0">
           {format(currentDate, "MMM")}
         </h1>
@@ -44,7 +44,7 @@ export default function CalendarNotes({
       </div>
 
       {/* General Notes for the month */}
-      <div className="anim-text notes-body-col">
+      <div className="anim-text flex flex-col w-full md:w-3/4 px-0 md:px-1 grow min-h-[150px] md:min-h-0 md:h-full z-20">
         <h3 className="text-theme-accent text-sm md:text-lg font-semibold mb-1 md:mb-0">
           Notes
         </h3>
@@ -52,7 +52,7 @@ export default function CalendarNotes({
           <textarea
             value={currentNotes}
             onChange={(e) => setMonthNote(monthKey, e.target.value)}
-            className="notes-textarea"
+            className="w-full h-full bg-transparent border-none resize-none outline-none leading-[32px] focus:ring-0 text-theme-text font-medium text-xs md:text-base"
             style={{
               backgroundImage:
                 "linear-gradient(transparent, transparent 31px, #d1d5db 31px, #d1d5db 32px)",

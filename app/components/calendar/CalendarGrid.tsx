@@ -91,11 +91,11 @@ export default function CalendarGrid({
   };
 
   return (
-    <div className="cal-grid-container">
+    <div className="order-1 md:order-2 w-[60%] md:w-full min-h-[300px] md:min-h-0 md:h-[65%] flex flex-col relative z-40 md:mt-4">
       {/* Action Tooltip Overlay */}
       {startDate && (
         <div
-          className="grid-action-tooltip"
+          className="absolute top-[-35px] left-1/2 transform -translate-x-1/2 bg-theme-text text-white px-4 py-1.5 rounded-md shadow-lg text-[10px] uppercase font-bold tracking-widest flex items-center justify-center gap-3 transition-opacity"
           style={{ pointerEvents: "auto" }}
         >
           <span>
@@ -106,7 +106,7 @@ export default function CalendarGrid({
 
           <button
             onClick={() => setModalOpen(true)}
-            className="tooltip-btn"
+            className="bg-theme-accent text-white rounded w-5 h-5 flex items-center justify-center hover:brightness-125 cursor-pointer shadow-sm transition-transform hover:scale-110 active:scale-95 text-xs pb-[2px]"
             title="Manage Events & Notes"
           >
             &#x270E;
@@ -117,11 +117,11 @@ export default function CalendarGrid({
       )}
 
       {/* Header Row */}
-      <div className="grid-header-row">
+      <div className="grid grid-cols-7 border-b border-gray-200">
         {weekHeaders.map((head, i) => (
           <div
             key={head}
-            className={`grid-header-cell ${
+            className={`text-center py-2 text-[9px] md:text-[11px] font-bold tracking-widest ${
               i >= 5
                 ? "text-theme-accent"
                 : "text-theme-text"
@@ -134,7 +134,7 @@ export default function CalendarGrid({
 
       {/* Grid Body */}
       <div
-        className="grid-body-container"
+        className="grid grid-cols-7 grid-rows-5 grow border-l border-t border-gray-200 mt-2"
         onMouseLeave={() => setHoverDate(null)}
       >
         {days.map((d, i) => {
@@ -181,9 +181,9 @@ export default function CalendarGrid({
               onClick={() => handleDateClick(d, i)}
               onContextMenu={(e) => handleRightClick(e, d, i)}
               onMouseEnter={() => setHoverDate(d)}
-              className={`anim-day anim-month-change grid-day-cell ${
+              className={`anim-day anim-month-change border-r border-b border-gray-200 p-2 flex justify-center items-center cursor-pointer transition-colors duration-150 relative ${
                 isSelectedStart || isSelectedEnd
-                  ? "bg-theme-highlight text-white rounded-lg shadow-lg"
+                  ? "bg-theme-highlight text-white  shadow-lg"
                   : isInRange || isHoverRange
                     ? "bg-theme-highlight-bg text-theme-highlight"
                     : isWeekend
@@ -192,7 +192,7 @@ export default function CalendarGrid({
               }`}
             >
               <div
-                className={`grid-day-indicator`}
+                className={`relative flex justify-center items-center h-6 w-6 md:h-8 md:w-8 rounded-full`}
               >
                 <span className={`text-sm md:text-base font-semibold`}>
                   {format(d, "d")}

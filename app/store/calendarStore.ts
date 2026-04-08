@@ -32,7 +32,7 @@ const IMAGES = [
   // Q3: Warm & Expansive (Jul - Sep)
   "https://images.unsplash.com/photo-1494548162494-384bba4ab999?q=80&w=2000&auto=format&fit=crop", // Golden hour horizon
   "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2000&auto=format&fit=crop", // Minimalist green hill
-  "https://images.unsplash.com/photo-1433086566280-57823a5a9d45?q=80&w=2000&auto=format&fit=crop", // Soft waterfall
+  "https://images.unsplash.com/photo-1472396961693-142e6e269027?q=80&w=2000&auto=format&fit=crop", // Soft waterfall
 
   // Q4: Muted & Moody (Oct - Dec)
   "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?q=80&w=2000&auto=format&fit=crop", // Moody path
@@ -52,6 +52,7 @@ interface CalendarState {
   theme: CalendarTheme;
   isDetailsModalOpen: boolean;
   soundEnabled: boolean;
+  hasVisited: boolean;
 
   // Actions
   nextMonth: () => void;
@@ -65,6 +66,8 @@ interface CalendarState {
   setDateNote: (key: string, note: string) => void;
   setModalOpen: (isOpen: boolean) => void;
   toggleSound: () => void;
+  setHasVisited: () => void;
+  setCurrentDate: (dateStr: string) => void;
   extractTheme: () => Promise<void>;
   getImageForMonth: (dateStr?: string) => string;
 }
@@ -72,7 +75,8 @@ interface CalendarState {
 export const useCalendarStore = create<CalendarState>()(
   persist(
     (set, get) => ({
-      currentDateStr: new Date(2022, 0, 1).toISOString(),
+      // fixed date for hydration match
+      currentDateStr: "2026-04-08T12:00:00.000Z",
       startDateStr: null,
       endDateStr: null,
       hoverDateStr: null,
@@ -89,6 +93,7 @@ export const useCalendarStore = create<CalendarState>()(
       },
       isDetailsModalOpen: false,
       soundEnabled: true,
+      hasVisited: false,
 
       // Actions
       nextMonth: () => {
@@ -135,6 +140,10 @@ export const useCalendarStore = create<CalendarState>()(
 
       toggleSound: () =>
         set((state) => ({ soundEnabled: !state.soundEnabled })),
+
+      setHasVisited: () => set({ hasVisited: true }),
+
+      setCurrentDate: (dateStr) => set({ currentDateStr: dateStr }),
 
       getImageForCurrentMonth: () => {
         const date = new Date(get().currentDateStr);
@@ -186,6 +195,7 @@ export const useCalendarStore = create<CalendarState>()(
         theme: state.theme,
         currentDateStr: state.currentDateStr,
         soundEnabled: state.soundEnabled,
+        hasVisited: state.hasVisited,
       }), // only persist these fields
     },
   ),
