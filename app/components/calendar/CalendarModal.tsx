@@ -85,7 +85,7 @@ export default function CalendarModal() {
         className="bg-white rounded shadow-2xl w-[400px] flex flex-col gap-0 border-[3px] border-[color:var(--theme-text)] relative overflow-hidden"
       >
         <div
-          className="absolute top-[-2px] left-[-2px] w-10 h-10 bg-[color:var(--theme-accent)]"
+          className="absolute top-[-2px] left-[-2px] w-10 h-10  bg-[color:var(--theme-accent)]"
           style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
         ></div>
 
